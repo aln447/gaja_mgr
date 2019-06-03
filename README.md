@@ -1,4 +1,4 @@
-#Gaja
+# Gaja
 Statyczna strona graficzna napisana w ramach części praktycznej pracy magisterskiej *"Projektowanie interfejsów, wybrane wzorce projektowe"
 
 - Autor: Alan Krygowski
