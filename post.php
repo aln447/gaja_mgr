@@ -1,165 +1,42 @@
-<!doctype html>
-<html lang="en">
+<?php require_once('header.php');
 
-<head>
-    <title>Gaja.pl</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- Material Kit CSS -->
-    <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
-    <!-- Custom styling -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-</head>
+$id = $_GET['id'];
 
-<body>
-    <nav class="bottom-panel text-center">
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-fire"></i> Top
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-clock-o"></i> Najnowsze
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-book"></i> Kategorie
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="index.html#search" class="nav-link">
-                <i class="fa fa-search"></i> Szukaj
-            </a>
-        </div>
-        <div class="panel__button material-hover text-danger">
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-user"></i> Konto
-            </a>
-        </div>
-    </nav>
-    <nav class="navbar fixed-top navbar-expand-lg" color-on-scroll="100">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="index.html">
-                    <b>Gaja.pl</b> - Dom najpiękniejszych historii</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-fire"></i> Top
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-clock-o"></i> Najnowsze
-                        </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#pablo" class="dropdown-toggle nav-link" data-toggle="dropdown"
-                            aria-expanded="false"><i class="fa fa-book"></i>Kategorie<div class="ripple-container">
-                            </div></a>
-                        <div class="dropdown-menu">
-                            <h6 class="dropdown-header">Kategorie</h6>
-                            <a href="#pablo" class="dropdown-item">Dramat</a>
-                            <a href="#pablo" class="dropdown-item">Kryminał</a>
-                            <a href="#pablo" class="dropdown-item">Sci-fi</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#pablo" class="dropdown-item">Komedia</a>
-                            <a href="#pablo" class="dropdown-item">Romans</a>
-                            <a href="#pablo" class="dropdown-item">Z zycia wzięte</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#pablo" class="dropdown-item">Wszystkie gatunki (39)</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-user"></i> Konto
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+$sql = sprintf('SELECT * from post WHERE id = %d', $id);
+$result = $conn->query($sql);
+$post = $result->fetch_assoc();
 
-    <div class="main-container">
-        <!-- TODO: MYSZKA NA TOP 3  -->
-        <div class="container">
+//update visitors
+$visitors = $post['visitors'] + 1;
+
+$sql = sprintf('UPDATE post SET visitors = %d WHERE id = %d', $visitors, $id);
+$conn->query($sql);
+
+//get user 
+
+$sql = sprintf('SELECT nick from user WHERE id = %d', $post['author_id']);
+$result = $conn->query($sql);
+$author = $result->fetch_assoc()['nick'];
+
+//get category
+$sql = sprintf('SELECT name from category WHERE id = %d', $post['cat_id']);
+$result = $conn->query($sql);
+$category = $result->fetch_assoc()['name'];
+
+?>
             <div class="row">
                 <section id="post" class="col-lg-8">
 
-
-
-                    <h1>Lorem ipsum dolor sit.</h1>
-                    <p>Autor: <a href="#">Autor</a> | 20.23.23</p>
-                    <p class="post__stats">2123 wejść, 1500 polubień, 400 komentarzy</p>
-                    <div class="thumb" style="background-image: url(assets/img/post1.jpg);"></div>
+                    <h1><?php echo $post['title'] ?></h1>
+                    <p>Kategoria: <a href="<?php echo ('top.php?id=' . $post['cat_id']) ?>"> <?php echo $category ?></a></p>
+                    <p>Autor: <a href="user.php?id=<?php echo $post['author_id'] ?>"><?php echo $author ?></a> | <?php echo $post['date_added'] ?></p>
+                    <p class="post__stats"><?php echo $visitors ?> wejść</p>
                     <hr>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis quaerat qui nemo, cum possimus
-                        corrupti blanditiis tempore doloribus perferendis recusandae iste est molestiae accusamus
-                        repellendus? Recusandae, consequatur nulla? Accusantium vitae reprehenderit tempora hic
-                        voluptates ut in adipisci alias nobis eligendi. Atque ullam sequi ipsa nesciunt illo numquam
-                        velit minus laboriosam deserunt labore culpa delectus iure facilis fuga expedita hic autem,
-                        blanditiis aut temporibus sint tempore, asperiores repellendus. Aspernatur tempora expedita sunt
-                        fugit dolore aut. Tempora voluptatibus expedita, temporibus repellat maxime ex esse at quae
-                        quaerat, corrupti voluptate necessitatibus voluptatum? Dicta architecto quibusdam, odio
-                        temporibus necessitatibus nisi quo fugit cum, placeat libero corrupti optio aliquid iste
-                        accusamus totam aut reprehenderit est. Quasi tenetur, exercitationem ab unde laudantium quas
-                        quibusdam culpa facilis magnam velit nisi a sit cumque eaque facere? Temporibus omnis enim ab
-                        laboriosam reiciendis architecto illum veniam in, iste, adipisci non quam laborum perspiciatis?
-                        Quidem voluptatem, voluptatibus reprehenderit quod adipisci harum ratione debitis molestiae
-                        asperiores aut illum provident magni quo, quisquam fugiat doloribus nisi sequi rem pariatur
-                        recusandae enim consequatur vel. Repellendus et perspiciatis nemo deserunt omnis ullam animi in
-                        iste distinctio magni quo facilis, eaque, dolorem unde numquam quod id beatae vel ducimus itaque
-                        quos delectus. A, vero quas.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore hic placeat earum accusamus
-                        enim at obcaecati asperiores! Eaque ex ipsum ad corporis magni quos, possimus deleniti eos
-                        consectetur harum et eum sunt nesciunt sint dolore corrupti fuga suscipit facilis officia,
-                        necessitatibus laborum tempore perferendis fugit illum? Dolorem quis, neque labore provident
-                        eius repellat esse in optio adipisci natus magnam reiciendis accusamus illo impedit ipsum
-                        quaerat ut. Neque cumque accusantium minus. Fugit rem libero hic voluptates asperiores suscipit
-                        adipisci officia ab at corporis accusamus nihil accusantium tempore a officiis autem soluta,
-                        numquam dolorem repudiandae? Laboriosam dolorum maiores ullam doloremque quaerat vero, nulla non
-                        modi deserunt eveniet! Cum veniam, soluta cupiditate ut sunt exercitationem et inventore
-                        delectus harum, similique commodi obcaecati expedita, laboriosam quibusdam quod odio velit?
-                        Repudiandae exercitationem animi eius aliquid error culpa, temporibus, porro ad tempore
-                        necessitatibus aspernatur enim optio libero. Assumenda ullam corrupti ut facere incidunt
-                        consectetur sed qui maiores minima reprehenderit tempore ducimus voluptas earum, eius officiis
-                        fuga itaque. Voluptatem libero magni esse at. Temporibus, ab. Rerum ab ducimus culpa quos
-                        officiis architecto totam voluptatem quas cumque. Nihil nemo nam quasi sunt odio est ullam,
-                        atque, sit numquam repellat optio blanditiis quidem praesentium eaque obcaecati, impedit error
-                        nesciunt.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab vero repellendus officiis rerum esse
-                        fuga tempore placeat molestias. Doloremque sint a nulla sapiente adipisci, excepturi quis,
-                        molestias accusantium, delectus ea dolores. Iste, consequuntur laborum amet exercitationem
-                        voluptas, facilis corrupti quibusdam alias placeat, harum vel unde officia ea. Sequi hic,
-                        explicabo ex aliquid maxime nihil consectetur at, odio adipisci inventore vero consequatur error
-                        ducimus eligendi magni dolorem tenetur doloribus, incidunt nemo repellendus culpa facere
-                        necessitatibus commodi. Sed odio corporis doloribus tempore quod laboriosam ullam necessitatibus
-                        accusantium voluptatibus aspernatur. Magnam, praesentium nihil? At modi ratione dicta soluta
-                        sunt numquam cumque minus magni.</p>
+                    <p><b><?php echo $post['intro'] ?></b></p>
+                    <div class="thumb" style="background-image: url(<?php echo $post['imagesrc'] ?>);"></div>
+                    <p><?php echo $post['content'] ?></p>
 
                     <hr>
-                    <!-- TODO DOUBLE CHECK THE LINK DISSAPEARING -->
-                    <ul class="pagination pagination-info">
-                        <li class="active page-item">
-                            <a href="javascript:void(0);" class="page-link">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="javascript:void(0);" class="page-link">3</a>
-                    </ul>
-
 
                     <hr>
                     <h2>Komentarze</h2>
@@ -224,157 +101,7 @@
                     </ul>
 
                 </section>
-                <div class="col">
-                    <section id="search" class="search">
-                        <h3 class="title">Wyszukaj</h3>
-                        <form class="form-inline ml-auto">
-                            <div class="form-group bmd-form-group">
-                                <input type="text" class="form-control"
-                                    placeholder="Szukaj nazw, autorów, tagów etc...">
-                            </div>
-                            <button type="submit" class="btn btn-raised btn-fab btn-round btn-primary">
-                                <i class="material-icons">search</i>
-                            </button>
-                        </form>
-                    </section>
-                    <section id="categories">
-                        <h3 class="title">Gatunki</h3>
-                        <div class="cat_list">
-                            <a href="#" class="btn btn-primary">Kryminał</a>
-                            <a href="#" class="btn btn-primary">Akcja</a>
-                            <a href="#" class="btn btn-primary">Sensacja</a>
-                            <a href="#" class="btn btn-primary">Romans</a>
-                            <a href="#" class="btn btn-primary">Dramat</a>
-                            <a href="#" class="btn btn-primary">Horror</a>
-                            <a href="#" class="btn btn-primary">Sci-Fi</a>
-                            <a href="#" class="btn btn-primary">Fikcja</a>
-                            <a href="#" class="btn btn-primary">Komedia</a>
-                            <a href="#" class="btn btn-primary">Dla dzieci</a>
-                            <a href="#" class="btn btn-primary">Dzienniki</a>
-                            <a href="#" class="btn btn-primary">Obyczajowe</a>
-                            <a href="#" class="btn btn-primary">Literatura faktu</a>
-                            <hr>
-                            <a href="#" class="btn btn-success">Pełen spis gatunków (39)</a>
-                        </div>
-                    </section>
-                    <hr>
-                    <section id="tags">
-                        <h3 class="title">Tagi</h3>
-                        <div class="cat_list">
-                            <a href="#" class="btn btn-link btn-primary">#Kryminał</a>
-                            <a href="#" class="btn btn-link btn-primary">#Akcja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Sensacja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Romans</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dramat</a>
-                            <a href="#" class="btn btn-link btn-primary">#Horror</a>
-                            <a href="#" class="btn btn-link btn-primary">#Sci-Fi</a>
-                            <a href="#" class="btn btn-link btn-primary">#Fikcja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Komedia</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dla dzieci</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dzienniki</a>
-                            <a href="#" class="btn btn-link btn-primary">#Obyczajowe</a>
-                            <a href="#" class="btn btn-link btn-primary">#Literatura</a>
-                            <hr>
-                            <a href="#" class="btn btn-success btn-link">Wszystkie tagi (330) </a>
-                        </div>
-                    </section>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    </div>
-    <footer class="footer footer-default">
-        <div class="container">
-            <nav class="float-left">
-                <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com/">
-                            Creative Tim
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright float-right">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>, made with <i class="material-icons">favorite</i> by
-                <a href="https://www.creative-tim.com/" target="blank">Creative Tim</a> for a better web.
-            </div>
-        </div>
-        <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
-        <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-        <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-        <script src="./assets/js/plugins/moment.min.js"></script>
-        <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-        <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-        <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-        <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-        <script src="./assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
-        <script>
-            $(document).ready(function () {
-                //init DateTimePickers
-                materialKit.initFormExtendedDatetimepickers();
-
-                // Sliders Init
-                materialKit.initSliders();
-
-                $('.search-clear').on('click', function () {
-                    $(this).siblings('input').val('');
-                })
-            });
-
-
-            function scrollToDownload() {
-                if ($('.section-download').length != 0) {
-                    $("html, body").animate({
-                        scrollTop: $('.section-download').offset().top
-                    }, 1000);
-                }
-            }
-
-        </script>
-    </footer>
-
-    <!-- Classic Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="material-icons">clear</i>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <h3 class="text-center title" style="margin: 0">Logowanie</h3>
-                    <form action="">
-                        <div class="form-group">
-                            <label for="login">e-mail</label>
-                            <input type="email" name="login" id="" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="passwd">hasło</label>
-                            <input type="password" name="passwd" id="" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-info">Zaloguj!</button>
-                        </div>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <h4>Nie masz jeszcze konta?</h4>
-                    <a href="register.html" class="btn btn-block btn-primary">Zarejestruj się juz teraz!</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  End Modal -->
-</body>
-
-</html>
+                
+                              <?php require_once('sidebar.php'); ?>
+  </div>
+  <?php require_once('footer.php'); ?>

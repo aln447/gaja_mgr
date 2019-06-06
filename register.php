@@ -1,135 +1,41 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Gaja.pl</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- Material Kit CSS -->
-    <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
-    <!-- Custom styling -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-</head>
-
-<body>
-    <nav class="bottom-panel text-center">
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-fire"></i> Top
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-clock-o"></i> Najnowsze
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="#" class="nav-link">
-                <i class="fa fa-book"></i> Kategorie
-            </a>
-        </div>
-        <div class="panel__button material-hover">
-            <a href="index.html#search" class="nav-link">
-                <i class="fa fa-search"></i> Szukaj
-            </a>
-        </div>
-        <div class="panel__button material-hover text-danger">
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-user"></i> Konto
-            </a>
-        </div>
-    </nav>
-    <nav class="navbar fixed-top navbar-expand-lg" color-on-scroll="100">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="index.html">
-                    <b>Gaja.pl</b> - Dom najpiękniejszych historii</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-fire"></i> Top
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-clock-o"></i> Najnowsze
-                        </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#pablo" class="dropdown-toggle nav-link" data-toggle="dropdown"
-                            aria-expanded="false"><i class="fa fa-book"></i>Kategorie<div class="ripple-container">
-                            </div></a>
-                        <div class="dropdown-menu">
-                            <h6 class="dropdown-header">Kategorie</h6>
-                            <a href="#pablo" class="dropdown-item">Dramat</a>
-                            <a href="#pablo" class="dropdown-item">Kryminał</a>
-                            <a href="#pablo" class="dropdown-item">Sci-fi</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#pablo" class="dropdown-item">Komedia</a>
-                            <a href="#pablo" class="dropdown-item">Romans</a>
-                            <a href="#pablo" class="dropdown-item">Z zycia wzięte</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#pablo" class="dropdown-item">Wszystkie gatunki (39)</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-user"></i> Konto
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="main-container">
-        <!-- TODO: MYSZKA NA TOP 3  -->
-        <div class="container">
+<?php require_once('header.php')?>
             <div class="row">
                 <section id="registration" class="col-lg-8">
                     <h2 class="title">Rejestracja</h2>
-                    <form>
+                    <form action="be/register_handle.php" method="POST">
                         <p>* - pole wymagane</p>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nazwa uzytkownika *</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                            <label for="username">Nazwa uzytkownika *</label>
+                            <input type="text" class="form-control" name="username"
                                 placeholder="twój nick" required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Email *</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                            <label for="email">Email *</label>
+                            <input type="email" class="form-control" name="email"
                                 placeholder="name@example.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Hasło *</label>
-                            <input type="password" minlength="6" class="form-control" id="exampleFormControlInput1"
+                            <label for="passwd">Hasło *</label>
+                            <input type="password" minlength="6" class="form-control" name="passwd"
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Potwierdź hasło *</label>
-                            <input type="password" minlength="6" class="form-control" id="exampleFormControlInput1"
+                            <label for="passwd2">Potwierdź hasło *</label>
+                            <input type="password" minlength="6" class="form-control" name="passwd2"
                                 required>
                         </div>
                         <hr>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Imię</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jan">
+                            <label for="name">Imię</label>
+                            <input type="text" class="form-control" name="name" placeholder="Jan">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Nazwisko</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matejko">
+                            <label for="lastname">Nazwisko</label>
+                            <input type="text" class="form-control" name="lastname" placeholder="Matejko">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Status</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
+                            <label for="status">Status</label>
+                            <select class="form-control" name="status">
                                 <option>Uczeń</option>
                                 <option selected>Student</option>
                                 <option>Osoba dorosła</option>
@@ -137,168 +43,17 @@
                         </div>
                         <div class="form-group">
                             <label class="label-control">Data urodzenia</label>
-                            <input type="text" class="form-control datetimepicker" value="10/05/2000">
+                            <input type="text" name="birthdate" class="form-control datetimepicker" value="10/05/2000">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Opowiedz coś o sobie</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <label for="bio">Opowiedz coś o sobie</label>
+                            <textarea class="form-control" id="bio" rows="3"></textarea>
                         </div>
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-primary text-right">Rejestruj!</button>
                         </div>
                     </form>
                 </section>
-                <div class="col">
-                    <section id="search" class="search">
-                        <h3 class="title">Wyszukaj</h3>
-                        <form class="form-inline ml-auto">
-                            <div class="form-group bmd-form-group">
-                                <input type="text" class="form-control"
-                                    placeholder="Szukaj nazw, autorów, tagów etc...">
-                            </div>
-                            <button type="submit" class="btn btn-raised btn-fab btn-round btn-primary">
-                                <i class="material-icons">search</i>
-                            </button>
-                        </form>
-                    </section>
-                    <section id="categories">
-                        <h3 class="title">Gatunki</h3>
-                        <div class="cat_list">
-                            <a href="#" class="btn btn-primary">Kryminał</a>
-                            <a href="#" class="btn btn-primary">Akcja</a>
-                            <a href="#" class="btn btn-primary">Sensacja</a>
-                            <a href="#" class="btn btn-primary">Romans</a>
-                            <a href="#" class="btn btn-primary">Dramat</a>
-                            <a href="#" class="btn btn-primary">Horror</a>
-                            <a href="#" class="btn btn-primary">Sci-Fi</a>
-                            <a href="#" class="btn btn-primary">Fikcja</a>
-                            <a href="#" class="btn btn-primary">Komedia</a>
-                            <a href="#" class="btn btn-primary">Dla dzieci</a>
-                            <a href="#" class="btn btn-primary">Dzienniki</a>
-                            <a href="#" class="btn btn-primary">Obyczajowe</a>
-                            <a href="#" class="btn btn-primary">Literatura faktu</a>
-                            <hr>
-                            <a href="#" class="btn btn-success">Pełen spis gatunków (39)</a>
-                        </div>
-                    </section>
-                    <hr>
-                    <section id="tags">
-                        <h3 class="title">Tagi</h3>
-                        <div class="cat_list">
-                            <a href="#" class="btn btn-link btn-primary">#Kryminał</a>
-                            <a href="#" class="btn btn-link btn-primary">#Akcja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Sensacja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Romans</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dramat</a>
-                            <a href="#" class="btn btn-link btn-primary">#Horror</a>
-                            <a href="#" class="btn btn-link btn-primary">#Sci-Fi</a>
-                            <a href="#" class="btn btn-link btn-primary">#Fikcja</a>
-                            <a href="#" class="btn btn-link btn-primary">#Komedia</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dla dzieci</a>
-                            <a href="#" class="btn btn-link btn-primary">#Dzienniki</a>
-                            <a href="#" class="btn btn-link btn-primary">#Obyczajowe</a>
-                            <a href="#" class="btn btn-link btn-primary">#Literatura</a>
-                            <hr>
-                            <a href="#" class="btn btn-success btn-link">Wszystkie tagi (330) </a>
-                        </div>
-                    </section>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    </div>
-    <footer class="footer footer-default">
-        <div class="container">
-            <nav class="float-left">
-                <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com/">
-                            Creative Tim
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright float-right">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>, made with <i class="material-icons">favorite</i> by
-                <a href="https://www.creative-tim.com/" target="blank">Creative Tim</a> for a better web.
-            </div>
-        </div>
-        <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
-        <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-        <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-        <script src="./assets/js/plugins/moment.min.js"></script>
-        <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-        <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-        <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-        <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-        <script src="./assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
-        <script>
-            $(document).ready(function () {
-                //init DateTimePickers
-                materialKit.initFormExtendedDatetimepickers();
-
-                // Sliders Init
-                materialKit.initSliders();
-
-                $('.search-clear').on('click', function () {
-                    $(this).siblings('input').val('');
-                })
-            });
-
-
-            function scrollToDownload() {
-                if ($('.section-download').length != 0) {
-                    $("html, body").animate({
-                        scrollTop: $('.section-download').offset().top
-                    }, 1000);
-                }
-            }
-
-        </script>
-    </footer>
-
-    <!-- Classic Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="material-icons">clear</i>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <h3 class="text-center title" style="margin: 0">Logowanie</h3>
-                    <form action="">
-                        <div class="form-group">
-                            <label for="login">e-mail</label>
-                            <input type="email" name="login" id="" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="passwd">hasło</label>
-                            <input type="password" name="passwd" id="" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-info">Zaloguj!</button>
-                        </div>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <h4>Nie masz jeszcze konta?</h4>
-                    <a href="register.html" class="btn btn-block btn-primary">Zarejestruj się juz teraz!</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  End Modal -->
-</body>
-
-</html>
+          <?php require_once('sidebar.php'); ?>
+  </div>
+  <?php require_once('footer.php'); ?>

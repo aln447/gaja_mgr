@@ -1,131 +1,72 @@
-<!doctype html>
-<html lang="en">
+<?php require_once('header.php');
 
-<head>
-  <title>Gaja.pl</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- Material Kit CSS -->
-  <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
-  <!-- Custom styling -->
-  <link href="assets/css/style.css" rel="stylesheet" />
-</head>
+$sql = sprintf('SELECT p.id as id, p.cat_id as cat_id, p.intro as intro, 
+p.date_added as date_added, p.imagesrc as imagesrc, p.content as content, 
+p.title as title, c.name as category, u.nick as nick, p.visitors as visitors
+FROM category c 
+INNER JOIN post p 
+ON p.cat_id = c.id 
+INNER JOIN user u 
+ON u.id = p.author_id 
+ORDER BY p.visitors DESC');
 
-<body>
-  <nav class="bottom-panel text-center">
-    <div class="panel__button material-hover">
-      <a href="#" class="nav-link">
-        <i class="fa fa-fire"></i> Top
-      </a>
-    </div>
-    <div class="panel__button material-hover">
-      <a href="#" class="nav-link">
-        <i class="fa fa-clock-o"></i> Najnowsze
-      </a>
-    </div>
-    <div class="panel__button material-hover">
-      <a href="#" class="nav-link">
-        <i class="fa fa-book"></i> Kategorie
-      </a>
-    </div>
-    <div class="panel__button material-hover">
-      <a href="index.html#search" class="nav-link">
-        <i class="fa fa-search"></i> Szukaj
-      </a>
-    </div>
-    <div class="panel__button material-hover text-danger">
-      <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
-        <i class="fa fa-user"></i> Konto
-      </a>
-    </div>
-  </nav>
-  <nav class="navbar fixed-top navbar-expand-lg" color-on-scroll="100">
-    <div class="container">
-      <div class="navbar-translate">
-        <a class="navbar-brand" href="index.html">
-          <b>Gaja.pl</b> - Dom najpiękniejszych historii</a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa fa-fire"></i> Top
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa fa-clock-o"></i> Najnowsze
-            </a>
-          </li>
-          <li class="dropdown nav-item">
-            <a href="#pablo" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"><i
-                class="fa fa-book"></i>Kategorie<div class="ripple-container"></div></a>
-            <div class="dropdown-menu">
-              <h6 class="dropdown-header">Kategorie</h6>
-              <a href="#pablo" class="dropdown-item">Dramat</a>
-              <a href="#pablo" class="dropdown-item">Kryminał</a>
-              <a href="#pablo" class="dropdown-item">Sci-fi</a>
-              <div class="dropdown-divider"></div>
-              <a href="#pablo" class="dropdown-item">Komedia</a>
-              <a href="#pablo" class="dropdown-item">Romans</a>
-              <a href="#pablo" class="dropdown-item">Z zycia wzięte</a>
-              <div class="dropdown-divider"></div>
-              <a href="#pablo" class="dropdown-item">Wszystkie gatunki (39)</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">
-              <i class="fa fa-user"></i> Konto
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+$result = $conn->query($sql);
 
-  <div class="main-container">
-    <!-- TODO: MYSZKA NA TOP 3  -->
-    <div class="container">
+$postList = [];
+
+while($post = $result->fetch_assoc()) {
+  $postList[] = $post;
+}
+
+
+//REMOVE THE TOP 3 POSTS AND PLACE THEM IN SPECIAL VARS
+$post1 = $postList[0];
+unset($postList[0]);
+
+$post2 = $postList[1];
+unset($postList[1]);
+
+$post3 = $postList[2];
+unset($postList[2]);
+
+?>
+
       <section id="top3">
         <h2 class="title top-title">Top3</h2>
         <div class="top bg-rose navbar">
           <div class="top__half">
-            <div class="top__field top__field--1" onclick="window.location.href='post.html'">
+            <div class="top__field top__field--1" onclick="window.location.href='post.php?id=<?= $post1['id'] ?>'">
               <div class="top__field__info">
-                <h2>Tytuł (gatunek)</h2>
-                <p>Autor | 23.12.2019r</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo vel ut ab culpa, illo voluptatum
-                  perferendis natus facilis reiciendis iure?</p>
-                <p class="top__stats">2123 wejść, 1500 polubień, 400 komentarzy</p>
+                <h2><?= $post1['title'] ?></h2>
+                <a href="<?php echo 'cat.php?id='.$post1['cat_id'] ?>"><?php echo $post1['category'] ?></a>
+                <p><a href="<?= $post1['author_id'] ?>"><?= $post1['nick'] ?></a> | <?= $post1['date_added'] ?></p>
+                <p><?= $post1['intro'] ?></p>
+                <p class="top__stats">Przeczytane przez: <?= $post1['visitors'] ?></p>
               </div>
-              <div class="top__field__bg top__field__bg--1"></div>
+              <div class="top__field__bg top__field__bg--1" style="background-image: url(<?= $post1['imagesrc'] ?>);"></div>
             </div>
           </div>
           <div class="top__half">
-            <div class="top__field top__field--2" onclick="window.location.href='post.html'">
+            <div class="top__field top__field--2" onclick="window.location.href='post.php?id=<?= $post2['id'] ?>'">
               <div class="top__field__info">
-                <h3>Tytuł (gatunek)</h3>
-                <p>Autor | 23.12.2019r</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, culpa!</p>
-                <p class="top__stats">1233 wejść, 923 polubień, 100 komentarzy</p>
+                <h3><?= $post2['title'] ?></h3>
+                <a href="<?php echo 'cat.php?id='.$post2['cat_id'] ?>"><?php echo $post2['category'] ?>
+                <p><a href="<?= $post2['author_id'] ?>"><?= $post2['nick'] ?></a> | <?= $post2['date_added'] ?></p>
+                <p class="ellipsis"><?= $post2['intro'] ?></p>
+                <p class="top__stats">Przeczytane przez: <?= $post2['visitors'] ?></p>
               </div>
-              <div class="top__field__bg top__field__bg--2"></div>
+              <div class="top__field__bg top__field__bg--2" style="background-image: url(<?= $post2['imagesrc'] ?>);"></div>
 
             </div>
-            <div class="top__field top__field--2" onclick="window.location.href='post.html'">
+            <div class="top__field top__field--2" onclick="window.location.href='post.php?id=<?= $post3['id'] ?>'">
               <div class="top__field__info">
-                <h3>Tytuł (gatunek)</h3>
-                <p>Autor | 23.12.2019r</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, culpa!</p>
-                <p class="top__stats">1500 wejść, 400 polubień, 110 komentarzy</p>
+                <h3><?= $post3['title'] ?></h3>
+                <a href="<?php echo 'cat.php?id='.$post3['cat_id'] ?>" ><?php echo $post3['category'] ?></a>
+                <p><a href="<?= $post3['author_id'] ?>"><?= $post3['nick'] ?></a> | <?= $post3['date_added'] ?></p>
+                <p class="ellipsis"><?= $post3['intro'] ?></p>
+                <p class="top__stats">Przeczytane przez: <?= $post3['visitors'] ?></p>
               </div>
-              <div class="top__field__bg top__field__bg--3"></div>
+              <div class="top__field__bg top__field__bg--3" style="background-image: url(<?= $post3['imagesrc'] ?>);"></div>
 
             </div>
           </div>
@@ -134,254 +75,46 @@
         <div class="row">
           <section id="popular" class="col-lg-8">
             <h2 class="title">
-              Popularne <select class="form-control" id="exampleFormControlSelect1">
-                <option>Dziś</option>
-                <option selected>Tydzień</option>
-                <option>Miesiąc</option>
-                <option>6 Miesięcy</option>
-                <option>Rok</option>
-              </select>
+              Popularne 
             </h2>
             <div>
             </div>
             <ul class="post-list">
-              <li class="post material-hover">
-                <div class="post__thumbnail" style="background-image: url(assets/img/post1.jpg);"> </div>
-                <div class="post__info">
-                  <h4 class="title"><a href="post.html">Nazwa posta</a> - <span class="text-info"><a
-                        href="#">Gatunek</a></span></h4>
-                  <p><a href="#">Autor</a> | 23.11.19</p>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, eius.</p>
-                  <p class="post__stats">1134 wejść, 234 polubień, 40 komentarzy</p>
-                  <p><span class="badge badge-pill badge-primary">#tag1</span>
-                    <span class="badge badge-pill badge-primary">#tag2</span>
-                    <span class="badge badge-pill badge-danger">#tag3</span></p>
-                </div>
-              </li>
-              <li class="post material-hover">
-                <div class="post__thumbnail" style="background-image: url(assets/img/post1.jpg);"> </div>
-                <div class="post__info">
-                  <h4 class="title"><a href="post.html">Nazwa posta</a> - <span class="text-info"><a
-                        href="#">Gatunek</a></span></h4>
-                  <p><a href="#">Autor</a> | 23.11.19</p>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, eius.</p>
-                  <p class="post__stats">1134 wejść, 234 polubień, 40 komentarzy</p>
-                  <p><span class="badge badge-pill badge-primary">#tag1</span>
-                    <span class="badge badge-pill badge-primary">#tag2</span>
-                    <span class="badge badge-pill badge-danger">#tag3</span></p>
-                </div>
-              </li>
-              <li class="post material-hover">
-                <div class="post__thumbnail" style="background-image: url(assets/img/post1.jpg);"> </div>
-                <div class="post__info">
-                  <h4 class="title"><a href="post.html">Nazwa posta</a> - <span class="text-info"><a
-                        href="#">Gatunek</a></span></h4>
-                  <p><a href="#">Autor</a> | 23.11.19</p>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, eius.</p>
-                  <p class="post__stats">1134 wejść, 234 polubień, 40 komentarzy</p>
-                  <p><span class="badge badge-pill badge-primary">#tag1</span>
-                    <span class="badge badge-pill badge-primary">#tag2</span>
-                    <span class="badge badge-pill badge-danger">#tag3</span></p>
-                </div>
-              </li>
-              <li class="post material-hover">
-                <div class="post__thumbnail" style="background-image: url(assets/img/post1.jpg);"> </div>
-                <div class="post__info">
-                  <h4 class="title"><a href="post.html">Nazwa posta</a> - <span class="text-info"><a
-                        href="#">Gatunek</a></span></h4>
-                  <p><a href="#">Autor</a> | 23.11.19</p>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, eius.</p>
-                  <p class="post__stats">1134 wejść, 234 polubień, 40 komentarzy</p>
-                  <p><span class="badge badge-pill badge-primary">#tag1</span>
-                    <span class="badge badge-pill badge-primary">#tag2</span>
-                    <span class="badge badge-pill badge-danger">#tag3</span></p>
-                </div>
-              </li>
-              <li class="post material-hover">
-                <div class="post__thumbnail" style="background-image: url(assets/img/post1.jpg);"> </div>
-                <div class="post__info">
-                  <h4 class="title"><a href="post.html">Nazwa posta</a> - <span class="text-info"><a
-                        href="#">Gatunek</a></span></h4>
-                  <p><a href="#">Autor</a> | 23.11.19</p>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, eius.</p>
-                  <p class="post__stats">1134 wejść, 234 polubień, 40 komentarzy</p>
-                  <p><span class="badge badge-pill badge-primary">#tag1</span>
-                    <span class="badge badge-pill badge-primary">#tag2</span>
-                    <span class="badge badge-pill badge-danger">#tag3</span></p>
-                </div>
-              </li>
+              <?php foreach($postList as $post): ?>
+                    <li class="post material-hover" onclick="window.location.href='<?php echo 'post.php?id=' . $post['id'] ?>'">
+                        <div class="post__thumbnail" style="background-image: url(<?php echo $post['imagesrc'] ?>);"> </div>
+                        <div class="post__info">
+                          <h4 class="title"><a href="<?php echo 'post.php?id=' . $post['id'] ?>"><?php echo $post['title'] ?></h4>
+                          <p><a href="<?php echo 'cat.php?id='.$post['cat_id'] ?>" class="badge badge-pill badge-primary"><?php echo $post['category'] ?></a></p>
+                          <p><a href="<?php echo 'user.php?id=' . $post['author_id'] ?>"><?php echo $post['nick'] ?></a> | <?php echo $post['date_added'] ?></p>
+                          <p><?php echo $post['intro'] ?></p>
+                          <p class="post__stats">Przeczytane przez:<?php echo $post['visitors'] ?></p>
+                          
+                        </div>
+                      </li>
+                <?php endforeach; ?>
             </ul>
-            <ul class="pagination pagination-info">
-              <li class="active page-item">
-                <a href="javascript:void(0);" class="page-link">1</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">2</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">3</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">4</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">5</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">następna</a>
-              </li>
-            </ul>
+          <!--  <ul class="pagination pagination-info">-->
+          <!--    <li class="active page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">1</a>-->
+          <!--    </li>-->
+          <!--    <li class="page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">2</a>-->
+          <!--    </li>-->
+          <!--    <li class="page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">3</a>-->
+          <!--    </li>-->
+          <!--    <li class="page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">4</a>-->
+          <!--    </li>-->
+          <!--    <li class="page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">5</a>-->
+          <!--    </li>-->
+          <!--    <li class="page-item">-->
+          <!--      <a href="javascript:void(0);" class="page-link">następna</a>-->
+          <!--    </li>-->
+          <!--  </ul>-->
           </section>
-          <div class="col">
-            <section id="search" class="search">
-              <h3 class="title">Wyszukaj</h3>
-              <form class="form-inline ml-auto">
-                <div class="form-group bmd-form-group">
-                  <input type="text" class="form-control" placeholder="Szukaj nazw, autorów, tagów etc...">
-                </div>
-                <button type="submit" class="btn btn-raised btn-fab btn-round btn-primary">
-                  <i class="material-icons">search</i>
-                </button>
-              </form>
-            </section>
-            <section id="categories">
-              <h3 class="title">Gatunki</h3>
-              <div class="cat_list">
-                <a href="#" class="btn btn-primary">Kryminał</a>
-                <a href="#" class="btn btn-primary">Akcja</a>
-                <a href="#" class="btn btn-primary">Sensacja</a>
-                <a href="#" class="btn btn-primary">Romans</a>
-                <a href="#" class="btn btn-primary">Dramat</a>
-                <a href="#" class="btn btn-primary">Horror</a>
-                <a href="#" class="btn btn-primary">Sci-Fi</a>
-                <a href="#" class="btn btn-primary">Fikcja</a>
-                <a href="#" class="btn btn-primary">Komedia</a>
-                <a href="#" class="btn btn-primary">Dla dzieci</a>
-                <a href="#" class="btn btn-primary">Dzienniki</a>
-                <a href="#" class="btn btn-primary">Obyczajowe</a>
-                <a href="#" class="btn btn-primary">Literatura faktu</a>
-                <hr>
-                <a href="#" class="btn btn-success">Pełen spis gatunków (39)</a>
-              </div>
-            </section>
-            <hr>
-            <section id="tags">
-              <h3 class="title">Tagi</h3>
-              <div class="cat_list">
-                <a href="#" class="btn btn-link btn-primary">#Kryminał</a>
-                <a href="#" class="btn btn-link btn-primary">#Akcja</a>
-                <a href="#" class="btn btn-link btn-primary">#Sensacja</a>
-                <a href="#" class="btn btn-link btn-primary">#Romans</a>
-                <a href="#" class="btn btn-link btn-primary">#Dramat</a>
-                <a href="#" class="btn btn-link btn-primary">#Horror</a>
-                <a href="#" class="btn btn-link btn-primary">#Sci-Fi</a>
-                <a href="#" class="btn btn-link btn-primary">#Fikcja</a>
-                <a href="#" class="btn btn-link btn-primary">#Komedia</a>
-                <a href="#" class="btn btn-link btn-primary">#Dla dzieci</a>
-                <a href="#" class="btn btn-link btn-primary">#Dzienniki</a>
-                <a href="#" class="btn btn-link btn-primary">#Obyczajowe</a>
-                <a href="#" class="btn btn-link btn-primary">#Literatura</a>
-                <hr>
-                <a href="#" class="btn btn-success btn-link">Wszystkie tagi (330) </a>
-              </div>
-            </section>
-          </div>
-
-        </div>
-
-    </div>
+          <?php require_once('sidebar.php'); ?>
   </div>
-  </div>
-  <footer class="footer footer-default">
-    <div class="container">
-      <nav class="float-left">
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com/">
-              Creative Tim
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="copyright float-right">
-        &copy;
-        <script>
-          document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com/" target="blank">Creative Tim</a> for a better web.
-      </div>
-    </div>
-    <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
-    <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-    <script src="./assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-    <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-    <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
-    <script>
-      $(document).ready(function () {
-        //init DateTimePickers
-        materialKit.initFormExtendedDatetimepickers();
-
-        // Sliders Init
-        materialKit.initSliders();
-
-        $('.search-clear').on('click', function () {
-          $(this).siblings('input').val('');
-        })
-      });
-
-
-      function scrollToDownload() {
-        if ($('.section-download').length != 0) {
-          $("html, body").animate({
-            scrollTop: $('.section-download').offset().top
-          }, 1000);
-        }
-      }
-
-    </script>
-  </footer>
-
-  <!-- Classic Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <i class="material-icons">clear</i>
-          </button>
-        </div>
-        <div class="modal-body text-center">
-          <h3 class="text-center title" style="margin: 0">Logowanie</h3>
-          <form action="">
-            <div class="form-group">
-              <label for="login">e-mail</label>
-              <input type="email" name="login" id="" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="passwd">hasło</label>
-              <input type="password" name="passwd" id="" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-block btn-info">Zaloguj!</button>
-            </div>
-          </form>
-
-        </div>
-        <div class="modal-footer">
-          <h4>Nie masz jeszcze konta?</h4>
-          <a href="register.html" class="btn btn-block btn-primary">Zarejestruj się juz teraz!</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  End Modal -->
-</body>
-
-</html>
+  <?php require_once('footer.php'); ?>

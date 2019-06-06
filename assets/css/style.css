@@ -54,7 +54,7 @@
 
 .top {
     padding: 0;
-    height: 375px;
+    height: 425px;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -105,15 +105,6 @@
             transform: scale(1.2, 1.2);
             opacity: 0.7;
         }
-          .top__field__bg--1 {
-            background: url(../img/post1.jpg);
-          }
-          .top__field__bg--2 {
-            background: url(../img/post2.jpg);
-          }
-          .top__field__bg--3 {
-            background: url(../img/post3.jpg);
-          }
         
             .top__field--1 p {
                 font-size: 1.2rem;
@@ -122,6 +113,23 @@
             font-style: italic;
             font-weight: normal
         }
+        .top__field a {
+          color: white !important;
+          font-weight: bold;
+        }
+        .top__field a:hover {
+          text-decoration: underline !important;
+        }
+        .top__field h3 {
+          font-weight: bold;
+        }
+        .ellipsis {
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        
 @media(max-width: 770px) {
   .top__field--1 h2 {
     font-size:1.5rem;
@@ -136,28 +144,32 @@
 }
 
 @media(max-width: 450px) {
+  .ellipsis {
+    white-space: normal;
+  }
   .top {
     height: auto;
   }
 
   .top__half{
-    width: auto;
+    width: 100%;
     height: auto;
   }
 } 
 
 
-/* POPULAR POST LIST */
+/* POST LIST */
 .post-list {
   list-style: none;
   padding: 0;
 }
 .post{
-  margin: 5px;
+  margin: 10px;
   position:relative;
   padding: 10px;
   border-radius: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
 .post__info{
   position: relative;
@@ -170,10 +182,10 @@
     text-decoration: underline
   }
   .post__thumbnail {
-    opacity: 0;
+    opacity: 0.1;
   }
 .post:hover .post__thumbnail{
-  opacity: 0.1
+  opacity: 0.15
 }
 .post__stats {
   font-style: italic
@@ -255,4 +267,20 @@ POST
 .comment {
   margin-bottom: 5px;
   border-bottom: 1px solid #3C4858
+}
+
+
+
+
+
+label {
+  color: #3C4858 !important;
+}
+
+.alert {
+  margin-top: 70px !important;
+}
+
+.dropdown-menu .dropdown-item .fa{
+  margin-right: 5px;
 }
