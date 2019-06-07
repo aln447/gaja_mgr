@@ -31,3 +31,5 @@ TODO
 - [x] Top nie ucina tekstu dobrze!
     
 - [x] DROPDOWN MOBILNEGO MENU
+
+- [ ] Uruchomienie bazy na heroku 
