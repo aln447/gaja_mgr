@@ -14,7 +14,7 @@ ON p.cat_id = c.id
 INNER JOIN user u 
 ON u.id = p.author_id 
 WHERE c.id = "%d"
-ORDER BY p.visitors DESC', $_GET['id']);
+ORDER BY p.date_added DESC', $_GET['id']);
 
 
 $result = $conn->query($sql);
@@ -22,7 +22,7 @@ $result = $conn->query($sql);
 ?>
     <div class="row">
         <section id="post" class="col-lg-8">
-            <h2 class="title">Najpopularniejsze dla: <?php echo $category['name'] ?></h2>
+            <h2 class="title">Najnowsze dla: <?php echo $category['name'] ?></h2>
             <ul class="post-list">
             <?php if ($result->num_rows): ?> 
                 <?php while($post = $result->fetch_assoc()): ?>
