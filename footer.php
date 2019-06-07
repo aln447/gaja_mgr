@@ -3,6 +3,8 @@
       <div class="copyright float-right">
         <p>Projekt i wykonanie strony: <a href="https://aln447.github.io">Alan Krygowski</a></p>
         <p>Szablon graficzny: <a href="https://www.creative-tim.com/" target="blank">Creative Tim</a></p>
+        <p>Grafiki: <a href="uhttps://unsplash.com">Unsplash</a></p>
+        <p>Ikony: <a href="https://fontawesome.com">Font Awesome</a></p>
       </div>
     </div>
     <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
