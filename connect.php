@@ -14,7 +14,7 @@ mysql://ba7a0b3fdf9ae0:526d0ff2@us-cdbr-iron-east-02.cleardb.net/heroku_09d49274
 $dbHost = 'us-cdbr-iron-east-02.cleardb.net';
 $dbName = 'heroku_09d49274fea8a0d';
 $dbUser = 'ba7a0b3fdf9ae0';
-$dbPasswd = '526d0ff';
+$dbPasswd = '526d0ff2';
 
 // Create connection
 $conn = new mysqli($dbHost, $dbUser, $dbPasswd, $dbName);
