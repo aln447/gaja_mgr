@@ -16,7 +16,7 @@
                         </div>
                         <div class="form-group">
                             <label for="passwd">Hasło *</label>
-                            <input type="password" minlength="6" class="form-control" name="passwd"
+                            <input type="password" minlength="6" class="form-control" name="passwd" placeholder="Min. 6 znaków"
                                 required>
                         </div>
                         <hr>
