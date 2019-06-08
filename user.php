@@ -5,7 +5,7 @@ $result = $conn->query($sql);
 
 $user = $result->fetch_assoc();
 
-$sql = sprintf('SELECT p.id as id, p.cat_id as cat_id, p.intro as intro, p.author_id as author_id
+$sql = sprintf('SELECT p.id as id, p.cat_id as cat_id, p.intro as intro, p.author_id as author_id,
 p.date_added as date_added, p.imagesrc as imagesrc, p.content as content, 
 p.title as title, c.name as category, u.nick as nick, p.visitors as visitors
 FROM category c 
