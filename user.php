@@ -5,7 +5,7 @@ $result = $conn->query($sql);
 
 $user = $result->fetch_assoc();
 
-$bday = new DateTime($user['birthday']);
+$bday = new \DateTime($user['birthday']);
 
 $bdayFormat = $createDate->format('Y-m-d');
 
