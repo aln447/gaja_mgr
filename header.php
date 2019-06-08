@@ -93,7 +93,7 @@
             </div>
           <?php else : ?>
             <div class="nav-item">
-              <a href="#" class="btn btn-danger btn-sm " data-toggle="modal" data-target="#myModal">
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal" style="color: #f44336">
                 <i class="fa fa-user"></i> Konto
               </a>
             </div>
