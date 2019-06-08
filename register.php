@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label class="label-control">Data urodzenia *</label>
-                            <input type="text" name="birthdate" class="form-control datetimepicker" value="10/05/2000" required>
+                            <input type="text" name="birthdate" class="form-control datetimepicker" required>
                         </div>
                         <div class="form-group">
                             <label for="bio">Opowiedz coś o sobie</label>
