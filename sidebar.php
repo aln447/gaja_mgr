@@ -1,9 +1,9 @@
 <div class="col sidebar">
             <section id="search" class="search">
-              <h3 class="title">Wyszukaj</h3>
+              <h3 class="title">Szukaj postów</h3>
               <form class="form-inline ml-auto" action="search.php" method="POST">
                 <div class="form-group bmd-form-group">
-                  <input type="text" class="form-control" name="value" placeholder="Szukaj nazw, autorów, tagów etc...">
+                  <input type="text" class="form-control" name="value" placeholder="Nazwa/autor/gatunek">
                 </div>
                 <button type="submit" class="btn btn-raised btn-fab btn-round btn-primary">
                   <i class="material-icons">search</i>
