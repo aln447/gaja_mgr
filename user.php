@@ -24,11 +24,17 @@ $result = $conn->query($sql);
         <section id="post" class="col-lg-8">
             <h2 class="title">Twoje konto:</h2>
                 <p>Nazwa użytkownika: <b><?php echo $user['nick'] ?></b></p>
-                <p>Imię: <b><?php echo $user['firstname'] ?></b></p>
-                <p>Nazwisko: <b><?php echo $user['lastname'] ?></b></p>
+                <?php if ($user['firstname']): ?>
+                    <p>Imię: <b><?php echo $user['firstname'] ?></b></p>
+                <?php endif; ?>
+                <?php if ($user['lastname']): ?>
+                    <p>Nazwisko: <b><?php echo $user['lastname'] ?></b></p>
+                <?php endif; ?>
                 <p>Status: <b><?php echo $user['status'] ?></b></p>
                 <p>Data urodzenia: <b><?php echo $user['birthday'] ?></b></p>
+                <?php if ($user['bio']): ?>
                 <p>Bio: <b><?php echo $user['bio'] ?></b></p>
+                <?php endif; ?>
                 <hr>
                 <h3>Posty</h3>
                 <ul class="post-list">
