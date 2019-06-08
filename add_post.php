@@ -11,6 +11,7 @@
                         <div class="form-group">
                             <label for="status">Kategoria</label>
                             <select class="form-control" name="category">
+                                <option disabled selected value> -- Wybierz kategorie -- </option>
                                 <?php 
                                 
                                 $sql = "SELECT * from category ORDER BY name";
