@@ -19,11 +19,6 @@
                             <input type="password" minlength="6" class="form-control" name="passwd"
                                 required>
                         </div>
-                        <div class="form-group">
-                            <label for="passwd2">Potwierdź hasło *</label>
-                            <input type="password" minlength="6" class="form-control" name="passwd2"
-                                required>
-                        </div>
                         <hr>
                         <div class="form-group">
                             <label for="name">Imię</label>
