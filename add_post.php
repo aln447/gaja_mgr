@@ -38,8 +38,8 @@
                             <label for="content text-primary" >Twoja historia: </label>
                             <textarea class="form-control" id="content" rows="25" name="content" required placeholder="Dawno, dawno temu..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-primary">Dodaj!!</button>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary text-right">Dodaj!</button>
                         </div>
                     </form>
                 </section>
