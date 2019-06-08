@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="status">Status *</label>
-                            <select class="form-control" name="status">
+                            <select class="form-control" name="status" required>
                                 <option disabled selected value> -- Wybierz opcje -- </option>
                                 <option>Uczeń</option>
                                 <option>Student</option>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label class="label-control">Data urodzenia *</label>
-                            <input type="text" name="birthdate" class="form-control datetimepicker" value="10/05/2000">
+                            <input type="text" name="birthdate" class="form-control datetimepicker" value="10/05/2000" required>
                         </div>
                         <div class="form-group">
                             <label for="bio">Opowiedz coś o sobie</label>
