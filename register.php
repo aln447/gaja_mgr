@@ -29,15 +29,16 @@
                             <input type="text" class="form-control" name="lastname" placeholder="Matejko">
                         </div>
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label for="status">Status *</label>
                             <select class="form-control" name="status">
+                                <option disabled selected value> -- Wybierz opcje -- </option>
                                 <option>Uczeń</option>
                                 <option selected>Student</option>
                                 <option>Osoba dorosła</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="label-control">Data urodzenia</label>
+                            <label class="label-control">Data urodzenia *</label>
                             <input type="text" name="birthdate" class="form-control datetimepicker" value="10/05/2000">
                         </div>
                         <div class="form-group">
