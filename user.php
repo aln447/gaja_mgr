@@ -5,9 +5,7 @@ $result = $conn->query($sql);
 
 $user = $result->fetch_assoc();
 
-$bday = new \DateTime($user['birthday']);
-
-$bdayFormat = $createDate->format('Y-m-d');
+str_replace('00:00:00', '', $user['birthday']);
 
 $sql = sprintf('SELECT p.id as id, p.cat_id as cat_id, p.intro as intro, p.author_id as author_id,
 p.date_added as date_added, p.imagesrc as imagesrc, p.content as content, 
@@ -35,7 +33,7 @@ $result = $conn->query($sql);
                     <p>Nazwisko: <b><?php echo $user['lastname'] ?></b></p>
                 <?php endif; ?>
                 <p>Status: <b><?php echo $user['status'] ?></b></p>
-                <p>Data urodzenia: <b><?php echo $bdayFormat ?></b></p>
+                <p>Data urodzenia: <b><?php echo $user['birthday'] ?></b></p>
                 <?php if ($user['bio']): ?>
                 <p>Bio: <b><?php echo $user['bio'] ?></b></p>
                 <?php endif; ?>
