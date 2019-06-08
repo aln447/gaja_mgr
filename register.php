@@ -39,11 +39,11 @@
                         </div>
                         <div class="form-group">
                             <label class="label-control">Data urodzenia *</label>
-                            <input type="text" name="birthdate" class="form-control datetimepicker" required>
+                            <input type="text" name="birthdate" class="form-control datetimepicker" placeholder="Wybierz datę z kalendarza" required>
                         </div>
                         <div class="form-group">
                             <label for="bio">Opowiedz coś o sobie</label>
-                            <textarea class="form-control" id="bio" rows="3"></textarea>
+                            <textarea class="form-control" id="bio" rows="3" placeholder="Mój ulubiony kolor to..."></textarea>
                         </div>
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-primary text-right">Rejestruj!</button>
