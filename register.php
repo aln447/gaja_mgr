@@ -33,7 +33,7 @@
                             <select class="form-control" name="status">
                                 <option disabled selected value> -- Wybierz opcje -- </option>
                                 <option>Uczeń</option>
-                                <option selected>Student</option>
+                                <option>Student</option>
                                 <option>Osoba dorosła</option>
                             </select>
                         </div>
